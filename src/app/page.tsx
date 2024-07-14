@@ -4,15 +4,10 @@ import Image from "next/image";
 
 async function getLatestEpisodes() {
   const env = process.env.NODE_ENV;
-  let url: string;
-  url = `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`;
-  /* if (env == "development") {
-    url = `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`;
-  } else if (env == "production") {
-    url = `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
-  } else {
-    return [];
-  } */
+  const dev = env !== "production";
+  const url = dev
+    ? `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`
+    : `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
 
   const res = await fetch(`${url}/api/getLatestEpisodes`, {
     next: { revalidate: 60 },
