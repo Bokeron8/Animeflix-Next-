@@ -5,9 +5,7 @@ import Image from "next/image";
 async function getLatestEpisodes() {
   const env = process.env.NODE_ENV;
   const dev = env !== "production";
-  const url = dev
-    ? `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`
-    : `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
+  const url = `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`;
 
   const res = await fetch(`${url}/api/getLatestEpisodes`, {
     next: { revalidate: 60 },
