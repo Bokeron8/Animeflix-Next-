@@ -5,7 +5,9 @@ export const dynamic = "force-dynamic";
 async function getLatestEpisodes() {
   const env = process.env.NODE_ENV;
   const dev = env !== "production";
-  const url = `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`;
+  const url = dev
+    ? `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`
+    : `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
 
   const res = await fetch(`${url}/api/getLatestEpisodes`, {
     next: { revalidate: 60 },
