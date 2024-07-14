@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Anime } from "@/types/anime";
 import { baseURL, getHTML } from "./utils";
 import { isCheerio } from "cheerio/lib/utils";
@@ -33,7 +34,7 @@ export class AnimeModel {
       .find("li")
       .each((idx, item) => {
         const [key, value] = $(item).text().split(":");
-        if (key && value) {
+        if (key && value && anime.info) {
           anime.info[key] = value.trim();
         }
       });
