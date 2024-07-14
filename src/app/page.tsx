@@ -1,8 +1,20 @@
 import { Episode } from "@/types/episode";
 import Link from "next/link";
 import Image from "next/image";
+
 async function getLatestEpisodes() {
-  const res = await fetch("http://localhost:3000/api/getLatestEpisodes", {
+  const env = process.env.NODE_ENV;
+  let url: string;
+
+  if (env == "development") {
+    url = `${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`;
+  } else if (env == "production") {
+    url = `${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
+  } else {
+    return [];
+  }
+
+  const res = await fetch(`http://${url}/api/getLatestEpisodes`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {
