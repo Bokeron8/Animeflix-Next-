@@ -1,8 +1,9 @@
+import React from "react";
 import { Episode } from "@/types/episode";
 import Link from "next/link";
 import Image from "next/image";
 async function getLatestEpisodes() {
-  const res = await fetch("http://localhost:3000/api/getLatestEpisodes", {
+  const res = await fetch("http://localhost:3000/api/test", {
     next: { revalidate: 60 },
   });
   if (!res.ok) {
@@ -12,8 +13,10 @@ async function getLatestEpisodes() {
   const latestEpisodes: Promise<Episode[]> = res.json();
   return latestEpisodes;
 }
-export default async function Home() {
+
+async function Test() {
   const latestEpisodes: Episode[] = await getLatestEpisodes();
+  console.log(latestEpisodes);
   return latestEpisodes.map((anime: Episode) => (
     <>
       <Link href={anime.href}>
@@ -27,3 +30,5 @@ export default async function Home() {
     </>
   ));
 }
+
+export default Test;
