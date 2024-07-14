@@ -1,7 +1,7 @@
 import { Episode } from "@/types/episode";
 import Link from "next/link";
 import Image from "next/image";
-
+export const dynamic = "force-dynamic";
 async function getLatestEpisodes() {
   const env = process.env.NODE_ENV;
   const dev = env !== "production";
