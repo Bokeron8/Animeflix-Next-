@@ -7,14 +7,14 @@ async function getLatestEpisodes() {
   let url: string;
 
   if (env == "development") {
-    url = `${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`;
+    url = `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`;
   } else if (env == "production") {
-    url = `${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
+    url = `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
   } else {
     return [];
   }
 
-  const res = await fetch(`http://${url}/api/getLatestEpisodes`, {
+  const res = await fetch(`${url}/api/getLatestEpisodes`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {
