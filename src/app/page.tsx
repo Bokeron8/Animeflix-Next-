@@ -14,6 +14,7 @@ async function getLatestEpisodes() {
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
+    console.log(res);
     throw new Error("Failed to fetch data");
   }
   const latestEpisodes: Promise<Episode[]> = res.json();
