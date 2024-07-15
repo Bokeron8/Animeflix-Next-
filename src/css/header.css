@@ -1,8 +1,21 @@
+.logo {
+  color: red;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.search-btn {
+  background-color: transparent;
+  color: white;
+  font-size: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .list-item {
   width: max-content;
 }
-.navbar {
-  display: flex;
+nav.navbar {
+  display: grid;
   grid-template-columns: minmax(150px, 3fr) minmax(200px, 1fr);
   gap: 1rem;
 }
@@ -42,7 +55,7 @@
   font-size: inherit;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .list-item {
     display: none;
   }

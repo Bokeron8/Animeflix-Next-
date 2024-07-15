@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+body {
+  color: #eee;
+  background-color: black;
+  font-family: "Roboto", sans-serif;
+  padding: 1% 5%;
+  max-width: 100dvw;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+}
+section {
+  margin-top: 12px;
+}
+
+.expand:hover {
+  transform: scale(1.1);
+  z-index: 1;
+}
+.expand {
+  text-align: center;
+  background-color: transparent;
+  transition: 0.6s;
+  border-radius: 1%;
+  overflow: clip;
+}
+@media screen and (max-width: 600px) {
+  .link-item {
+    display: none;
+  }
+}

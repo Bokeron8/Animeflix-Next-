@@ -1,0 +1,70 @@
+.episode img {
+  aspect-ratio: 2/3;
+  /* aspect-ratio: 16/9; */
+}
+.carrousel-items::-webkit-scrollbar {
+  display: none;
+}
+.carrousel-items {
+  display: grid;
+  align-items: end;
+
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(230px, 1fr);
+  overflow-x: auto;
+  overflow-y: hidden;
+  column-gap: 4px;
+  padding: 12px 0;
+}
+.carrousel-item {
+  position: relative;
+  background-color: black;
+}
+.carrousel-text {
+  position: absolute;
+  background-color: #3333338a;
+  backdrop-filter: blur(2px);
+  width: 100%;
+  top: auto;
+  bottom: 0;
+  padding: 4px;
+}
+.controls {
+  z-index: 2;
+  position: absolute;
+  color: white;
+  top: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  max-width: 2rem;
+  padding: 0 1.3rem;
+  font-size: 2rem;
+}
+.next {
+  right: 0;
+}
+button.controls {
+  display: grid;
+  grid-template-areas: 1fr;
+  justify-content: center;
+  align-items: center;
+}
+.controls > svg {
+  display: none;
+}
+.controls:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+.controls:hover > svg {
+  display: block;
+}
+
+@media screen and (max-width: 600px) {
+  .episode img {
+    aspect-ratio: 2/3;
+  }
+  .carrousel-items {
+    grid-auto-columns: minmax(160px, 1fr);
+  }
+}

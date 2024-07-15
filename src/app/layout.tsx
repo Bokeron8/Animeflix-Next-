@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import type { Metadata } from "next";
-import "@/main.css";
+import "@/css/main.css";
 
 export const metadata: Metadata = {
   title: "Animeflix",
