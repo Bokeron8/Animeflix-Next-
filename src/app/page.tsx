@@ -1,8 +1,10 @@
-export const dynamic = "force-dynamic";
 import { Episode } from "@/types/episode";
 import Carrousel from "@/components/Carrousel";
 import "@/css/carrousel.css";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import { BASE_URL } from "@/libs/utils";
+import { AnimeModel } from "@/models/anime";
+import { EpisodeModel } from "@/models/episode";
+
 export default async function Home() {
   const latestEpisodes: Episode[] = await getLatestEpisodes();
   const mostVotedAnimesBySeason: Episode[] = await getMostVotedAnimesBySeason();
@@ -20,13 +22,7 @@ export default async function Home() {
   );
 }
 async function getLatestEpisodes() {
-  const env = process.env.NODE_ENV;
-  const dev = env !== "production";
-  const url = dev
-    ? `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`
-    : `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
-
-  const res = await fetch(`${url}/api/getLatestEpisodes`, {
+  /* const res = await fetch(`${BASE_URL}/api/getLatestEpisodes`, {
     cache: "no-cache",
   });
   if (!res.ok) {
@@ -34,25 +30,21 @@ async function getLatestEpisodes() {
     console.log(res);
     throw new Error("Failed to fetch data");
   }
-  const latestEpisodes: Promise<Episode[]> = res.json();
+  const latestEpisodes: Promise<Episode[]> = res.json(); */
+  const latestEpisodes = EpisodeModel.getLatest();
   return latestEpisodes;
 }
 
 async function getMostVotedAnimesBySeason() {
-  const env = process.env.NODE_ENV;
-  const dev = env !== "production";
-  const url = dev
-    ? `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`
-    : `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
-
-  const res = await fetch(`${url}/api/getMostVotedAnimesBySeason`, {
+  /* const res = await fetch(`${BASE_URL}/api/getMostVotedAnimesBySeason`, {
     cache: "no-cache",
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     console.log(res);
     throw new Error("Failed to fetch data");
-  }
-  const latestEpisodes: Promise<Episode[]> = res.json();
+  } */
+
+  const latestEpisodes = AnimeModel.getMostVotedAnimeBySeason({});
   return latestEpisodes;
 }

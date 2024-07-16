@@ -1,7 +1,7 @@
 "use client";
 import CarrouselItem from "./CarrouselItem";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function Carrousel({ items }: { items: any }) {
   const carrouselRef = useRef<HTMLDivElement | null>(null);

@@ -1,0 +1,28 @@
+.info {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 6px;
+}
+
+.episode-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 24px;
+  list-style: none;
+  gap: 12px;
+}
+.episode {
+  width: 100%;
+
+  background-color: red;
+}
+.episode > a {
+  display: block;
+  padding: 24px;
+  width: 100%;
+}
+@media screen and (max-width: 600px) {
+  .info {
+    grid-template-columns: 1fr;
+  }
+}
