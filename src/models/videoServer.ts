@@ -10,15 +10,26 @@ export class VideoServerModel {
     chapter: string;
   }) {
     const url = `${baseURL}${title}/${chapter}/`;
-    const $ = await getHTML({ url, revalidate: false });
-    const animeCover = $("div.video-info > div.video-portada").children(
-      "img"
-    ).attr;
+    const $ = await getHTML({
+      url,
+      fetchOptions: { next: { revalidate: 10 } },
+    });
+    const animeCover = $("div.video-info > div.video-portada")
+      .children("img")
+      .attr("src");
+
+    if (animeCover === undefined) {
+      console.log("calling again");
+      return this.getServers({ title, chapter });
+    }
+
     const scripts = $("script");
-    const script = scripts.filter((idx, s) => {
+    let script = scripts.filter((idx, s) => {
       if (!s.children[0]) return false;
       return s.children[0].data.includes("video = []");
-    })[0].children[0].data;
+    });
+    script = script[0].children[0].data;
+
     const videoReg = /video\[[0-9]*\] = .* src="\/([^\s]*)"/g;
     const [url1, url2] = [...script.matchAll(videoReg)].map(
       (el) => `${baseURL}${el[1]}`

@@ -6,7 +6,7 @@ import { isCheerio } from "cheerio/lib/utils";
 export class AnimeModel {
   static async getInfo(title: string) {
     const url = `${baseURL}${title}/`;
-    const $ = await getHTML({ url, revalidate: 5 * 24 * 3600 });
+    const $ = await getHTML({ url });
 
     const anime: Anime = {};
     anime.title = $(".anime__details__title").find("h3").text().trim();
@@ -56,7 +56,7 @@ export class AnimeModel {
     year?: string;
   }) {
     const url = `${baseURL}top/?temporada=${season}&fecha=${year}`;
-    const $ = await getHTML({ url, revalidate: 3600 * 24 });
+    const $ = await getHTML({ url });
     const animes = $("div.list > div#conb");
     const results: any[] = [];
     animes.each((idx, el) => {

@@ -3,7 +3,7 @@ import { Episode } from "@/types/episode";
 
 export class EpisodeModel {
   static async getLatest() {
-    const $ = await getHTML({ url: baseURL, revalidate: 120 });
+    const $ = await getHTML({ url: baseURL });
     const result: Episode[] = [];
     $("div.anime_programing")
       .find("a")

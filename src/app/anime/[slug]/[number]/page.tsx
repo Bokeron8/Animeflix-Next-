@@ -1,16 +1,25 @@
+"use client";
 import { VideoJS } from "@/components/VideoJS";
 import "@/css/watch.css";
-import { BASE_URL } from "@/libs/utils";
-import { VideoServerModel } from "@/models/videoServer";
-
-export default async function Page({
+import { useEffect, useState } from "react";
+import { VideoServer } from "@/types/videoServer";
+export default function Page({
   params,
 }: {
   params: { slug: string; number: string };
 }) {
-  const title = params.slug;
-  const episodeNumber = params.number;
-  const videoServers = await getVideoServers({ title, episodeNumber });
+  const { slug: title, number: episodeNumber } = params;
+  const [videoServers, setVideoServers] = useState<VideoServer[]>([]);
+  useEffect(() => {
+    const fetchServers = async () => {
+      const res = await fetch(
+        `/api/getVideoServers?title=${title}&episode_number=${episodeNumber}`
+      );
+      const servers = await res.json();
+      setVideoServers(servers);
+    };
+    fetchServers();
+  }, [title, episodeNumber]);
 
   const videoJsOptions = {
     autoplay: true,
@@ -19,10 +28,13 @@ export default async function Page({
     fluid: true,
     sources: [
       {
-        src: videoServers[videoServers.length - 1].url,
+        src: videoServers.length
+          ? videoServers[videoServers.length - 1].url
+          : "",
       },
     ],
   };
+
   return (
     <main>
       <h1 id="anime-title">
@@ -33,29 +45,4 @@ export default async function Page({
       </div>
     </main>
   );
-}
-
-async function getVideoServers({
-  title,
-  episodeNumber,
-}: {
-  title: string;
-  episodeNumber: string;
-}) {
-  /* const res = await fetch(
-    `${BASE_URL}/api/getVideoServers?title=${title}&episode_number=${episodeNumber}`,
-    { cache: "reload" }
-  );
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    const json = await res.json();
-    console.log(json);
-    throw new Error("Failed to fetch data");
-  }
-  const latestEpisodes = res.json(); */
-  const servers = VideoServerModel.getServers({
-    title,
-    chapter: episodeNumber,
-  });
-  return servers;
 }

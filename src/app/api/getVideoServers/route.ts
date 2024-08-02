@@ -14,6 +14,5 @@ export async function GET(request: NextRequest) {
     title: title,
     chapter: chapter,
   });
-  console.log(videoServers);
   return NextResponse.json(videoServers, { status: 200 });
 }

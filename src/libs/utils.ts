@@ -9,23 +9,34 @@ const dev = env !== "production";
 export const BASE_URL = dev
   ? `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`
   : `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
-//export const BASE_URL = `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`;
+/* export const BASE_URL = `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`; */
 export async function getHTML({
   url,
   cloudfare = false,
-  revalidate = 3600,
+  fetchOptions = { next: {}, cache: "default" },
 }: {
   url: string;
   cloudfare?: boolean;
-  revalidate?: false | 0 | number;
+  fetchOptions?: {
+    next?: { revalidate?: number | false; tags?: string[] };
+    cache?:
+      | "default"
+      | "force-cache"
+      | "no-cache"
+      | "no-store"
+      | "only-if-cached"
+      | "reload";
+  };
 }) {
+  const { next, cache } = fetchOptions;
   let html: string;
   if (cloudfare) {
     html = await cloudscraper.get(url, { referrer: "https://jkanime.net" });
   } else {
     const res = await fetch(url, {
       referrer: "https://jkanime.net",
-      next: { revalidate: revalidate },
+      next,
+      cache,
     });
     html = await res.text();
   }
@@ -42,7 +53,7 @@ async function parseVideoURL({
   if (["Mega", "Mediafire", "Mixdrop"].includes(server))
     return { url, server, type: "iframe" };
   if (server == "VOE") url = url.replace("voe.sx", "erikcoldperson.com");
-  const $ = await getHTML({ url, revalidate: false });
+  const $ = await getHTML({ url });
   const scripts = $("script");
   let result = { url: "", server: server, type: "video" };
   if (["Streamwish", "Vidhide"].includes(server)) {

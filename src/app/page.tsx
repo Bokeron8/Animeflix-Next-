@@ -1,3 +1,4 @@
+export const revalidate = 60;
 import { Episode } from "@/types/episode";
 import Carrousel from "@/components/Carrousel";
 import "@/css/carrousel.css";
