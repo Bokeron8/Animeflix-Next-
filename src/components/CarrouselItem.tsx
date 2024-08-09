@@ -19,7 +19,7 @@ export default function CarrouselItem({
         <p className="carrousel-text">
           {title} {episodeNumber}
         </p>
-        <Image src={img} alt={title} width={800} height={220}></Image>
+        <Image src={img} alt={title} width={800} height={220} />
       </Link>
     </div>
   );

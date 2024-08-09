@@ -32,13 +32,13 @@ async function AnimeInfo({ title }: { title: string }) {
 
 export default AnimeInfo;
 async function getAnimeInfo(title: string) {
-  /* const res = await fetch(`${BASE_URL}/api/getAnimeInfo?title=${title}`);
+  const res = await fetch(`${BASE_URL}/api/getAnimeInfo?title=${title}`);
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     console.log(res);
     throw new Error("Failed to fetch data");
   }
-  const animeInfo: Promise<Anime> = res.json(); */
-  const animeInfo: Promise<Anime> = AnimeModel.getInfo(title);
+  const animeInfo: Promise<Anime> = res.json();
+  /* const animeInfo: Promise<Anime> = AnimeModel.getInfo(title); */
   return animeInfo;
 }

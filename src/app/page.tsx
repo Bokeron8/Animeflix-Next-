@@ -5,7 +5,6 @@ import "@/css/carrousel.css";
 import { BASE_URL } from "@/libs/utils";
 import { AnimeModel } from "@/models/anime";
 import { EpisodeModel } from "@/models/episode";
-
 export default async function Home() {
   const latestEpisodes: Episode[] = await getLatestEpisodes();
   const mostVotedAnimesBySeason: Episode[] = await getMostVotedAnimesBySeason();
