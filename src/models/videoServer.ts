@@ -1,5 +1,6 @@
 //@ts-nocheck
-import { BASE_URL, baseURL, getHTML, getVideos } from "@/libs/utils";
+import { getHTML, getVideos } from "@/libs/utils";
+import { BASE_URL, baseURL } from "@/libs/consts";
 
 export class VideoServerModel {
   static async getServers({

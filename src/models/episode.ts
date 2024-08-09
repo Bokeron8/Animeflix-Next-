@@ -1,4 +1,5 @@
-import { BASE_URL, baseURL, getHTML } from "@/libs/utils";
+import { getHTML } from "@/libs/utils";
+import { BASE_URL, baseURL } from "@/libs/consts";
 import { Episode } from "@/types/episode";
 
 export class EpisodeModel {
@@ -10,7 +11,7 @@ export class EpisodeModel {
       .each((i, ep) => {
         let href = $(ep).attr("href");
         if (href == undefined) return;
-        href = href.replace(baseURL, `${BASE_URL}/anime/`);
+        href = href.replace(baseURL, `/anime/`);
         const [searchTitle, episodeNumber] = href.split("/");
 
         const image = $(ep).find(".listadohome img");

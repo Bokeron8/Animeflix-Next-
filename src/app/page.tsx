@@ -2,7 +2,7 @@ export const revalidate = 60;
 import { Episode } from "@/types/episode";
 import Carrousel from "@/components/Carrousel";
 import "@/css/carrousel.css";
-import { BASE_URL } from "@/libs/utils";
+import { BASE_URL } from "@/libs/consts";
 import { AnimeModel } from "@/models/anime";
 import { EpisodeModel } from "@/models/episode";
 export default async function Home() {
@@ -11,11 +11,13 @@ export default async function Home() {
   return (
     <>
       <section>
-        <h3>Episodios recientes</h3>
+        <h2 className="text-1xl font-semibold">Episodios recientes</h2>
         <Carrousel items={latestEpisodes} />
       </section>
       <section>
-        <h3>Animes mas votados de la temporada</h3>
+        <h2 className="text-1xl font-semibold">
+          Animes mas votados de la temporada
+        </h2>
         <Carrousel items={mostVotedAnimesBySeason} />
       </section>
     </>

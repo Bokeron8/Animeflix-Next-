@@ -8,6 +8,11 @@ const nextConfig = {
         port: "",
         pathname: "/assets/images/animes/image/**",
       },
+      {
+        protocol: "https",
+        hostname: "nextui.org",
+        pathname: "/images/**",
+      },
     ],
   },
 };

@@ -29,30 +29,11 @@ nav.navbar {
   text-decoration: none;
   color: inherit;
 }
-.search-container {
-  font-size: 1rem;
-  border: 1px solid white;
-  display: flex;
-  gap: 12px;
-  padding: 6px;
-}
 
 .logo {
   color: red;
   font-size: 2rem;
   font-weight: bold;
-}
-.search-input {
-  width: 100%;
-  background-color: black;
-  color: white;
-  outline: 0;
-  font-size: inherit;
-}
-.search-btn {
-  background-color: transparent;
-  color: white;
-  font-size: inherit;
 }
 
 @media screen and (max-width: 800px) {

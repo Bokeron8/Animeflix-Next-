@@ -1,6 +1,7 @@
 //@ts-nocheck
 import { Anime } from "@/types/anime";
-import { BASE_URL, baseURL, getHTML } from "@/libs/utils";
+import { baseURL, BASE_URL } from "@/libs/consts";
+import { getHTML } from "@/libs/utils";
 import { isCheerio } from "cheerio/lib/utils";
 
 export class AnimeModel {
@@ -65,11 +66,40 @@ export class AnimeModel {
       const img = $(el).find("img").attr("src");
       if (img) anime.img = img;
       const href = $(el).children("a").attr("href");
-      if (href !== undefined)
-        anime.href = href.replace(baseURL, `${BASE_URL}/anime/`);
+      if (href !== undefined) anime.href = href.replace(baseURL, `/anime/`);
 
       results.push(anime);
     });
     return results;
+  }
+  static async searchAnime({
+    query = "",
+    pageNumber = 1,
+    filters = {},
+  }: {
+    query: string;
+    pageNumber: number;
+    filters?: any;
+  }) {
+    const url = `${baseURL}buscar/${query.replaceAll(" ", "_")}/${pageNumber}/`;
+    const $ = await getHTML({ url });
+    const results = $(".anime__item");
+
+    const animes: [{ title: string; coverSrc: string; href: string }] = [];
+
+    results.each((idx, result) => {
+      const anime = {};
+      anime.title = $(result).find(".anime__item__text h5 a").text().trim();
+
+      anime.coverSrc = $(result).find(".anime__item__pic").attr("data-setbg");
+      anime.href = $(result)
+        .children("a")
+        .attr("href")
+        .replace(baseURL, "/anime?title=")
+        .slice(0, -1);
+
+      animes.push(anime);
+    });
+    return animes;
   }
 }

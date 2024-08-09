@@ -1,15 +1,5 @@
-export const baseURL = "https://jkanime.net/";
-export const imagesURL = "https://cdn.jkdesu.com/assets/images/animes/image/";
-
-var cloudscraper = require("cloudscraper");
 import * as cheerio from "cheerio";
 
-const env = process.env.NODE_ENV;
-const dev = env !== "production";
-export const BASE_URL = dev
-  ? `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`
-  : `https://${process.env.NEXT_PUBLIC_PRODUCTION_URL}`;
-/* export const BASE_URL = `http://${process.env.NEXT_PUBLIC_DEVELOPMENT_URL}`; */
 export async function getHTML({
   url,
   cloudfare = false,
@@ -28,6 +18,7 @@ export async function getHTML({
       | "reload";
   };
 }) {
+  var cloudscraper = require("cloudscraper");
   const { next, cache } = fetchOptions;
   let html: string;
   if (cloudfare) {

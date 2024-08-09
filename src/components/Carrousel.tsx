@@ -8,9 +8,12 @@ export default function Carrousel({ items }: { items: any }) {
 
   return (
     <div className="carrousel-container" style={{ position: "relative" }}>
-      <div className="carrousel-items" ref={carrouselRef}>
-        {items.map((item: any) => (
-          <CarrouselItem {...item} key={crypto.randomUUID()} />
+      <div
+        className="grid grid-flow-col md:auto-cols-[minmax(230px,_1fr)] auto-cols-[minmax(180px,_1fr)] overflow-x-auto overflow-y-hidden scrollbar-hide gap-x-1 items-end"
+        ref={carrouselRef}
+      >
+        {items.map((item: any, idx: Number) => (
+          <CarrouselItem {...item} key={idx} />
         ))}
       </div>
       <button
