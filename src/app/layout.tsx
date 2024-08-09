@@ -7,6 +7,7 @@ import "@/global.css";
 export const metadata: Metadata = {
   title: "Animeflix",
   description: "Una pagina web dedicada a anime con el estilo netflix",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

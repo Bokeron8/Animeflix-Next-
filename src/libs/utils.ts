@@ -18,19 +18,17 @@ export async function getHTML({
       | "reload";
   };
 }) {
-  var cloudscraper = require("cloudscraper");
+  //var cloudscraper = require("cloudscraper");
   const { next, cache } = fetchOptions;
   let html: string;
-  if (cloudfare) {
-    html = await cloudscraper.get(url, { referrer: "https://jkanime.net" });
-  } else {
-    const res = await fetch(url, {
-      referrer: "https://jkanime.net",
-      next,
-      cache,
-    });
-    html = await res.text();
-  }
+
+  const res = await fetch(url, {
+    referrer: "https://jkanime.net",
+    next,
+    cache,
+  });
+  html = await res.text();
+
   return cheerio.load(html);
 }
 

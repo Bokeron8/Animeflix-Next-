@@ -95,7 +95,7 @@ export class AnimeModel {
       anime.href = $(result)
         .children("a")
         .attr("href")
-        .replace(baseURL, "/anime?title=")
+        .replace(baseURL, "/anime/")
         .slice(0, -1);
 
       animes.push(anime);
