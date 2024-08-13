@@ -12,8 +12,7 @@ export class EpisodeModel {
         let href = $(ep).attr("href");
         if (href == undefined) return;
         href = href.replace(baseURL, `/anime/`);
-        const [searchTitle, episodeNumber] = href.split("/");
-
+        const [_, _2, searchTitle, episodeNumber] = href.split("/");
         const image = $(ep).find(".listadohome img");
         const title = image.attr("title");
         const imgSrc = image.attr("src");

@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import "@/css/header.css";
 import NextLink from "next/link";
 import { FaSearch } from "react-icons/fa";
@@ -18,6 +19,7 @@ import {
 
 function Header() {
   const formRef = useRef<HTMLFormElement>(null);
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
     "Series",
@@ -25,6 +27,20 @@ function Header() {
     "Novedades Populares",
     "Mi Lista",
     "En Emision",
+  ];
+  const navItems = [
+    {
+      href: "/series",
+      text: "Series",
+    },
+    {
+      href: "/peliculas",
+      text: "Peliculas",
+    },
+    {
+      href: "/novedades",
+      text: "Novedades",
+    },
   ];
   const handleKeyDown = (e: { key: any }) => {
     const { key } = e;
@@ -47,21 +63,17 @@ function Header() {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link as={NextLink} color="foreground" href="/series">
-            Series
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link as={NextLink} href="/peliculas" aria-current="page">
-            Peliculas
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link as={NextLink} color="foreground" href="/novedades">
-            Novedades Populares
-          </Link>
-        </NavbarItem>
+        {navItems.map(({ href, text }, idx) => (
+          <NavbarItem key={idx} isActive={pathname == href}>
+            <Link
+              as={NextLink}
+              color={pathname == href ? "primary" : "foreground"}
+              href={href}
+            >
+              {text}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
       <NavbarContent justify="end">
         <form action="/search" ref={formRef}>

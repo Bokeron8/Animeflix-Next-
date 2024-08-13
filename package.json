@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:dev": "SET NODE_ENV=development && next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.6",
     "@tanstack/react-query": "^5.51.23",
+    "@types/videojs": "^5.16.2",
     "cheerio": "^1.0.0-rc.12",
     "cloudscraper": "^4.6.0",
     "framer-motion": "^11.3.24",
@@ -25,6 +27,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/video.js": "^7.3.58",
     "autoprefixer": "^10.4.20",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",

@@ -5,11 +5,16 @@ import "@/css/carrousel.css";
 import { BASE_URL } from "@/libs/consts";
 import { AnimeModel } from "@/models/anime";
 import { EpisodeModel } from "@/models/episode";
+
+import { RecentlyWatch } from "@/sections/RecentlyWatch";
+
 export default async function Home() {
   const latestEpisodes: Episode[] = await getLatestEpisodes();
   const mostVotedAnimesBySeason: Episode[] = await getMostVotedAnimesBySeason();
   return (
     <>
+      <RecentlyWatch />
+
       <section>
         <h2 className="text-1xl font-semibold">Episodios recientes</h2>
         <Carrousel items={latestEpisodes} />
