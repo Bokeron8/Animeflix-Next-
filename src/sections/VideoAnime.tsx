@@ -1,7 +1,5 @@
 import { VideoServerModel } from "@/models/videoServer";
-import { Button } from "@nextui-org/react";
-import VideoJS from "@/components/VideoJS";
-import Link from "next/link";
+import AnimeVideo from "@/components/AnimeVideo";
 async function VideoAnime({
   title,
   episodeNumber,
@@ -30,27 +28,16 @@ async function VideoAnime({
       },
     ],
   };
+  const filteredServers = videoServers.filter(
+    (server) => server.url != "" && server.type == "video"
+  );
   return (
     <>
-      <div>
-        <VideoJS options={videoJsOptions} episodeInfo={episodeInfo} />
-      </div>
-      <div className="flex justify-between mt-2">
-        <Button
-          as={Link}
-          color="primary"
-          href={`/anime/${title}/${Number(episodeNumber) - 1}`}
-        >
-          Back
-        </Button>
-        <Button
-          as={Link}
-          color="primary"
-          href={`/anime/${title}/${Number(episodeNumber) + 1}`}
-        >
-          Next
-        </Button>
-      </div>
+      <AnimeVideo
+        videoServers={filteredServers}
+        videoJsOptions={videoJsOptions}
+        episodeInfo={episodeInfo}
+      />
     </>
   );
 }

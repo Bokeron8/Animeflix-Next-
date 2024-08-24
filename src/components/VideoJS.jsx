@@ -3,7 +3,7 @@ import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import { useEffect, useRef } from "react";
 
-export const VideoJS = ({ options, episodeInfo }) => {
+export const VideoJS = ({ options, episodeInfo, serverURL }) => {
   const videoRef = useRef();
   const playerRef = useRef();
 
@@ -26,9 +26,9 @@ export const VideoJS = ({ options, episodeInfo }) => {
       const player = playerRef.current;
 
       player.autoplay(options.autoplay);
-      player.src(options.sources);
+      player.src(serverURL);
     }
-  }, [options, videoRef]);
+  }, [options, videoRef, serverURL]);
 
   // Dispose the Video.js player when the functional component unmounts
   useEffect(() => {
@@ -51,7 +51,11 @@ export const VideoJS = ({ options, episodeInfo }) => {
         episodeIdx = watchingList.length - 1;
       }
       const currentEpisode = watchingList[episodeIdx];
-      const currentTime = currentEpisode?.timeStamp || 0;
+      console.log(currentEpisode, episodeInfo);
+      const currentTime =
+        currentEpisode.episodeNumber === episodeInfo.episodeNumber
+          ? currentEpisode?.timeStamp
+          : 0 || 0;
       player.currentTime(currentTime);
 
       window.addEventListener("beforeunload", function (e) {

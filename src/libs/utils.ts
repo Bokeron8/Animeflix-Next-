@@ -41,11 +41,10 @@ async function parseVideoURL({
 }) {
   if (["Mega", "Mediafire", "Mixdrop"].includes(server))
     return { url, server, type: "iframe" };
-  if (server == "VOE") url = url.replace("voe.sx", "erikcoldperson.com");
-  const $ = await getHTML({ url });
-  const scripts = $("script");
+  let $ = await getHTML({ url });
+  let scripts = $("script");
   let result = { url: "", server: server, type: "video" };
-  if (["Streamwish", "Vidhide"].includes(server)) {
+  /* if (["Streamwish", "Vidhide"].includes(server)) {
     const regex = new RegExp('file:"(.*)"');
     scripts.each((i, el) => {
       const content = $(el).html();
@@ -56,9 +55,15 @@ async function parseVideoURL({
         }
       }
     });
-  }
+  } */
 
   if (server == "VOE") {
+    const content = $(scripts.first()).html();
+    const urlRegx = new RegExp("window.location.href = '(.*)'");
+    const match = content?.match(urlRegx);
+    if (match) url = match[1];
+    $ = await getHTML({ url });
+    scripts = $("script");
     scripts.each((i, el) => {
       const regex = /'hls': '([\S]*=)'/;
       const content = $(el).html();
@@ -70,7 +75,7 @@ async function parseVideoURL({
       }
     });
   }
-  if (server == "Filemoon") {
+  if (["Streamwish", "Vidhide", "Filemoon"].includes(server)) {
     scripts.each((i, el) => {
       const regex = /return p}\(([\s\S]*)/; //new RegExp("return p}((.*)");
       const content = $(el).html();
@@ -85,7 +90,8 @@ async function parseVideoURL({
   }
   if (server == "Streamtape") {
     const content = $("#ideoolink");
-    result.url = content.text().replace("/", "https://") + "&stream=1";
+    result.url = content.text().replace("/", "//") + "&stream=1";
+    result.url = "";
   }
   if (server == "Server 1") {
     scripts.each((i, el) => {

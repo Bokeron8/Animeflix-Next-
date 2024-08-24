@@ -2,6 +2,12 @@
 import { getHTML, getVideos } from "@/libs/utils";
 import { BASE_URL, baseURL } from "@/libs/consts";
 
+export interface ServerType {
+  url: string;
+  server: string;
+  type: "video" | "iframe";
+}
+
 export class VideoServerModel {
   static async getServers({
     title,
@@ -9,7 +15,7 @@ export class VideoServerModel {
   }: {
     title: string;
     chapter: string;
-  }) {
+  }): Promise<ServerType[]> {
     const url = `${baseURL}${title}/${chapter}/`;
     const $ = await getHTML({
       url,
@@ -44,7 +50,6 @@ export class VideoServerModel {
     servers.push({ remote: url2, server: "Server 2" });
 
     const videoPromises = getVideos(servers);
-
     return Promise.all(videoPromises).then((values) => {
       return values;
     });
