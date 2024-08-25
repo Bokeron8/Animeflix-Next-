@@ -15,6 +15,15 @@ const nextConfig = {
       },
     ],
   },
+  headers() {
+    return [
+      {
+        // matching all API routes
+        source: "/anime/:slug/:episodeNumber*",
+        headers: [{ key: "Access-Control-Allow-Origin", value: "*" }],
+      },
+    ];
+  },
 
   reactStrictMode: true, // Enable React strict mode for improved error handling
   swcMinify: true, // Enable SWC minification for improved performance
