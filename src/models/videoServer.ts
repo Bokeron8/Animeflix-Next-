@@ -21,14 +21,10 @@ export class VideoServerModel {
       url,
       fetchOptions: { next: { revalidate: 10 } },
     });
+    console.log();
     const animeCover = $("div.video-info > div.video-portada")
       .children("img")
       .attr("src");
-
-    if (animeCover === undefined) {
-      console.log("calling again");
-      return this.getServers({ title, chapter });
-    }
 
     const scripts = $("script");
     let script = scripts.filter((idx, s) => {
